@@ -14,8 +14,8 @@ export default {
     components: {
         PostList,
     },
-    data() {
-        return {
+    asyncData(context, callback) {
+        callback(null, {
             loadedPosts: [
                 {
                     id: '1',
@@ -39,7 +39,7 @@ export default {
                         'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg',
                 },
             ],
-        };
+        });
     },
 };
 </script>
