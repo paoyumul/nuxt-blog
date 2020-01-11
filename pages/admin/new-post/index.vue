@@ -21,10 +21,10 @@ export default {
     methods: {
         onSubmitted(postData) {
             axios
-                .post(
-                    'https://nuxt-blog-d5fc3.firebaseio.com/posts.json',
-                    postData,
-                )
+                .post('https://nuxt-blog-d5fc3.firebaseio.com/posts.json', {
+                    ...postData,
+                    updatedDate: new Date(),
+                })
                 .then((result) => {
                     // eslint-disable-next-line
                     console.log(result);
