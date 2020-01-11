@@ -14,32 +14,10 @@ export default {
     components: {
         PostList,
     },
-    asyncData(context, callback) {
-        callback(null, {
-            loadedPosts: [
-                {
-                    id: '1',
-                    title: 'First Post',
-                    previewText: 'This is our first post!',
-                    thumbnail:
-                        'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg',
-                },
-                {
-                    id: '2',
-                    title: 'Second Post',
-                    previewText: 'This is our second post!',
-                    thumbnail:
-                        'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg',
-                },
-                {
-                    id: '3',
-                    title: 'Third Post',
-                    previewText: 'This is our third post!',
-                    thumbnail:
-                        'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg',
-                },
-            ],
-        });
+    computed: {
+        loadedPosts() {
+            return this.$store.getters.loadedPosts;
+        },
     },
 };
 </script>
