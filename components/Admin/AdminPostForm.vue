@@ -54,8 +54,7 @@ export default {
     },
     methods: {
         onSave() {
-            // eslint-disable-next-line
-            console.log(this.editedPost);
+            this.$emit('submit', this.editedPost);
         },
         onCancel() {
             this.$router.push('/admin');
