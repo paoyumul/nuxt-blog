@@ -19,19 +19,27 @@
 
 <script>
 export default {
-    asyncData(context, callback) {
-        callback(null, {
-            loadedPost: {
-                id: '1',
-                title: 'First Post (ID: "' + context.params.id + '")',
-                previewText: 'This is our first post!',
-                author: 'Paolo',
-                updatedDate: new Date(),
-                content: 'This is some long content',
-                thumbnail:
-                    'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg',
-            },
-        });
+    asyncData(context) {
+        return new Promise((resolve, reject) => {
+            resolve({
+                loadedPost: {
+                    id: '1',
+                    title: 'First Post (ID: "' + context.params.id + '")',
+                    previewText: 'This is our first post!',
+                    author: 'Paolo',
+                    updatedDate: new Date(),
+                    content: 'This is some long content',
+                    thumbnail:
+                        'https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg',
+                },
+            });
+        })
+            .then((data) => {
+                return data;
+            })
+            .catch((e) => {
+                context.error(new Error());
+            });
     },
 };
 </script>
