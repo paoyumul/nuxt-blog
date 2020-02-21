@@ -1,12 +1,13 @@
 <template>
     <div class="admin-post-page">
         <section class="update-form">
-            <AdminPostForm :post="loadedPost" />
+            <AdminPostForm :post="loadedPost" @submit="onSubmit" />
         </section>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
 import AdminPostForm from '~/components/Admin/AdminPostForm';
 
 export default {
@@ -14,17 +15,30 @@ export default {
     components: {
         AdminPostForm,
     },
-    data() {
-        return {
-            loadedPost: {
-                author: 'Paolo',
-                title: 'My awesome Post',
-                content: 'Super amazing, thanks for that.',
-                thumbnail: '',
-            },
-        };
+    asyncData(context) {
+        return axios
+            .get(
+                process.env.baseUrl +
+                    '/posts/' +
+                    context.params.postId +
+                    '.json',
+            )
+            .then((response) => {
+                return {
+                    loadedPost: {
+                        ...response.data,
+                        id: context.params.postId,
+                    },
+                };
+            });
     },
-    methods: {},
+    methods: {
+        onSubmitted() {
+            this.$store.dispatch('editPost', this.loadedPost).then(() => {
+                this.$router.push('/admin');
+            });
+        },
+    },
 };
 </script>
 
