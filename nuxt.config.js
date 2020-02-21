@@ -45,7 +45,12 @@ export default {
     /*
      ** Plugins to load before mounting the App
      */
-    plugins: ['~plugins/core-components.js'],
+    plugins: [
+        // Register Core Components as Global Vue Components
+        '~plugins/core-components.js',
+        // Date Formatter
+        '~plugins/date-filter.js',
+    ],
     /*
      ** Nuxt.js dev-modules
      */
