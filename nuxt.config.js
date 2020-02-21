@@ -41,7 +41,7 @@ export default {
     /*
      ** Global CSS
      */
-    css: [],
+    css: ['~assets/styles/main.css'],
     /*
      ** Plugins to load before mounting the App
      */
@@ -80,5 +80,9 @@ export default {
     env: {
         baseUrl:
             process.env.BASE_URL || 'https://nuxt-blog-d5fc3.firebaseio.com',
+    },
+    transition: {
+        name: 'fade',
+        mode: 'out-in',
     },
 };
