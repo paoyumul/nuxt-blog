@@ -1,5 +1,4 @@
 import Vuex from 'vuex';
-import axios from 'axios';
 
 const createStore = () => {
     return new Vuex.Store({
@@ -22,12 +21,12 @@ const createStore = () => {
         },
         actions: {
             nuxtServerInit(vuexContext, context) {
-                return axios
-                    .get(process.env.baseUrl + '/posts.json')
-                    .then((response) => {
+                return context.app.$axios
+                    .$get('/posts.json')
+                    .then((data) => {
                         const postsArray = [];
-                        for (const key in response.data) {
-                            postsArray.push({ ...response.data[key], id: key });
+                        for (const key in data) {
+                            postsArray.push({ ...data[key], id: key });
                         }
                         vuexContext.commit('setPosts', postsArray);
                     })
@@ -43,15 +42,15 @@ const createStore = () => {
                     ...post,
                     updatedDate: new Date(),
                 };
-                return axios
-                    .post(
+                return this.$axios
+                    .$post(
                         'https://nuxt-blog-d5fc3.firebaseio.com/posts.json',
                         createdPost,
                     )
-                    .then((response) => {
+                    .then((data) => {
                         vuexContext.commit('addPost', {
                             ...createdPost,
-                            id: response.data.name,
+                            id: data.name,
                         });
                         this.$router.push('/admin');
                     })
@@ -61,8 +60,8 @@ const createStore = () => {
                     });
             },
             editPost(vuexContext, editedPost) {
-                return axios
-                    .put(
+                return this.$axios
+                    .$put(
                         'https://nuxt-blog-d5fc3.firebaseio.com/posts' +
                             editedPost.id +
                             '.json',
